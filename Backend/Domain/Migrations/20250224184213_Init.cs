@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -6,52 +7,62 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Domain.Migrations
 {
     /// <inheritdoc />
-    public partial class InitSqlServer : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Content = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     AuthorId = table.Column<int>(type: "int", nullable: false),
                     PostId = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comments", x => x.Id);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Folders",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     LogoId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Folders", x => x.Id);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Images",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Extension = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Size = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Path = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Extension = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Size = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Path = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     FolderId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -63,19 +74,22 @@ namespace Domain.Migrations
                         column: x => x.FolderId,
                         principalTable: "Folders",
                         principalColumn: "Id");
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Email = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Age = table.Column<int>(type: "int", nullable: true),
-                    PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    PasswordHash = table.Column<byte[]>(type: "longblob", nullable: false),
+                    PasswordSalt = table.Column<byte[]>(type: "longblob", nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false),
                     AvatarImageId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -87,20 +101,22 @@ namespace Domain.Migrations
                         column: x => x.AvatarImageId,
                         principalTable: "Images",
                         principalColumn: "Id");
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Content = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Content = table.Column<byte[]>(type: "LONGBLOB", nullable: false),
                     AuthorId = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP(6)"),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP(6)"),
+                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -111,12 +127,13 @@ namespace Domain.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Age", "AvatarImageId", "Email", "Name", "PasswordHash", "PasswordSalt", "Role" },
-                values: new object[] { 1, null, null, "user@example.com", "User", new byte[] { 48, 176, 20, 106, 39, 235, 47, 152, 176, 109, 30, 221, 166, 164, 120, 156, 81, 80, 226, 63, 121, 59, 165, 254, 245, 251, 226, 128, 102, 14, 68, 186, 82, 78, 46, 231, 146, 238, 172, 132, 59, 224, 26, 163, 142, 47, 31, 112, 150, 40, 46, 61, 2, 123, 154, 187, 59, 241, 237, 62, 67, 215, 33, 103 }, new byte[] { 51, 12, 215, 28, 115, 205, 59, 234, 103, 164, 163, 117, 31, 39, 142, 209, 127, 225, 159, 3, 2, 27, 183, 44, 228, 35, 60, 221, 133, 223, 40, 152, 73, 230, 147, 132, 216, 175, 11, 168, 249, 196, 156, 122, 198, 14, 185, 150, 70, 108, 179, 188, 10, 83, 28, 156, 218, 80, 93, 68, 153, 232, 178, 61, 17, 255, 25, 118, 104, 101, 157, 210, 4, 87, 48, 162, 224, 74, 0, 115, 252, 77, 88, 108, 39, 129, 169, 117, 53, 82, 152, 107, 239, 204, 144, 161, 128, 138, 113, 29, 231, 135, 215, 7, 221, 101, 54, 222, 10, 107, 174, 134, 101, 86, 74, 0, 247, 103, 231, 9, 175, 17, 252, 184, 35, 119, 59, 199 }, 1 });
+                values: new object[] { 1, null, null, "user@example.com", "User", new byte[] { 77, 17, 67, 178, 126, 75, 232, 23, 9, 97, 233, 141, 192, 155, 19, 144, 203, 49, 21, 66, 129, 168, 40, 137, 124, 62, 242, 3, 159, 223, 213, 144, 139, 206, 1, 35, 225, 187, 237, 50, 225, 243, 215, 171, 138, 57, 20, 220, 165, 222, 85, 122, 91, 8, 14, 62, 43, 103, 204, 108, 122, 27, 19, 84 }, new byte[] { 11, 173, 148, 98, 6, 85, 196, 104, 1, 12, 211, 136, 7, 41, 55, 145, 52, 186, 52, 34, 230, 234, 46, 98, 172, 106, 17, 199, 8, 227, 204, 135, 251, 206, 154, 192, 204, 150, 222, 90, 87, 69, 227, 116, 175, 0, 174, 143, 45, 6, 17, 158, 52, 194, 237, 115, 183, 178, 26, 167, 8, 118, 146, 210, 35, 101, 241, 243, 149, 31, 181, 12, 90, 50, 244, 177, 109, 28, 118, 99, 192, 234, 247, 180, 161, 187, 12, 204, 0, 232, 34, 238, 159, 120, 58, 131, 28, 253, 146, 198, 16, 41, 111, 155, 166, 114, 0, 43, 254, 31, 52, 3, 73, 34, 170, 245, 215, 19, 221, 162, 127, 34, 251, 128, 44, 5, 55, 13 }, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_AuthorId",

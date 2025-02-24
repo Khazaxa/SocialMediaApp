@@ -44,7 +44,8 @@ public class DomainModule(IConfigurationRoot _configuration) : Module
             {
                 var optionsBuilder = new DbContextOptionsBuilder<SocialMediaDbContext>();
                 var connectionString = _configuration.GetConnectionString(ConnectionStringName);
-                optionsBuilder.UseSqlServer(connectionString!);
+                optionsBuilder.UseMySql(connectionString!, ServerVersion.AutoDetect(connectionString));
+                
                 return new SocialMediaDbContext(optionsBuilder.Options);
             })
             .As<DbContext>()
