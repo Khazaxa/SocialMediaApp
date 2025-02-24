@@ -19,12 +19,14 @@ Before proceeding, make sure you have the following installed on your system:
    Use Docker Compose to start the services defined in your `docker-compose.yml` file.
 
    ```bash
+   cd Core/Db
    docker-compose up
    ```
 
    Add the `-d` flag to run the services in detached mode (in the background):
 
    ```bash
+   cd Core/Db
    docker-compose up -d
    ```
 
