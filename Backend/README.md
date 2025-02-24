@@ -19,13 +19,13 @@ Before proceeding, make sure you have the following installed on your system:
    Use Docker Compose to start the services defined in your `docker-compose.yml` file.
 
    ```bash
-   docker-compose -f ./Backend/Core/Db/docker-compose.yml up
+   docker-compose up
    ```
 
    Add the `-d` flag to run the services in detached mode (in the background):
 
    ```bash
-   docker-compose -f ./Backend/Core/Db/docker-compose.yml up -d
+   docker-compose up -d
    ```
 
 2. **Access the Application**
