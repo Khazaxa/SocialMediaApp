@@ -52,7 +52,6 @@ public class Program
         var env = builder.Environment;
         builder.Configuration
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
             .AddJsonFile("appsettings.Local.json", optional: true, reloadOnChange: true)
             .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
             .AddEnvironmentVariables();
