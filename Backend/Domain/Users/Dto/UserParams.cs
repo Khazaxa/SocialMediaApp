@@ -4,4 +4,4 @@ public record UserParams(
     string? Name,
     int? Age,
     int? AvatarId
-    );
+);

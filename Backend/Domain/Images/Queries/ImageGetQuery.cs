@@ -6,7 +6,9 @@ namespace Domain.Images.Queries;
 
 public record ImageGetQuery(int Id) : IQuery<ImageDto>;
 
-internal class ImageGetQueryHandler(IImageRepository imageRepository) : IQueryHandler<ImageGetQuery, ImageDto>
+internal class ImageGetQueryHandler(
+    IImageRepository imageRepository
+) : IQueryHandler<ImageGetQuery, ImageDto>
 {
     public async Task<ImageDto> Handle(ImageGetQuery request, CancellationToken cancellationToken)
     {

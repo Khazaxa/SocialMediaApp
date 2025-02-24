@@ -5,4 +5,5 @@ public record CommentDto(
     string Content,
     string Author,
     int AuthorId,
-    int PostId);
+    int PostId
+);

@@ -1,12 +1,14 @@
 using Domain.Authentication.Commands;
 using Domain.Authentication.Dto;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 [ApiController]
 [Route("auth")]
+[AllowAnonymous]
 public class AuthenticationController(IMediator mediator) : ControllerBase
 {
     [HttpPost, Route("register")]

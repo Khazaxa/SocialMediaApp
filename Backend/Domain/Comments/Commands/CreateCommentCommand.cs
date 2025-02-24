@@ -10,9 +10,11 @@ namespace Domain.Comments.Commands;
 
 public record CreateCommentCommand(CommentParams Input) : ICommand<Unit>;
 
-internal class CreateCommentCommandHandler(ICommentRepository commentRepository,
+internal class CreateCommentCommandHandler(
+    ICommentRepository commentRepository,
     IUserContextService context,
-    IUnitOfWork unitOfWork) : ICommandHandler<CreateCommentCommand, Unit>
+    IUnitOfWork unitOfWork
+) : ICommandHandler<CreateCommentCommand, Unit>
 {
     public async Task<Unit> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
     {

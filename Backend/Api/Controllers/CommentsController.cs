@@ -2,12 +2,14 @@ using Domain.Comments.Commands;
 using Domain.Comments.Dto;
 using Domain.Comments.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 [ApiController]
 [Route("")]
+[Authorize(Roles = "Admin,User,Employee")]
 public class CommentsController(IMediator mediator) : ControllerBase
 {
     [HttpPost]

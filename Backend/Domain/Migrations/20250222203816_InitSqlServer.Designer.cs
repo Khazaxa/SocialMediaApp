@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Migrations
 {
     [DbContext(typeof(SocialMediaDbContext))]
-    [Migration("20250108184900_Init")]
-    partial class Init
+    [Migration("20250222203816_InitSqlServer")]
+    partial class InitSqlServer
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,9 +21,9 @@ namespace Domain.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.11")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Domain.Comments.Entities.Comment", b =>
                 {
@@ -31,17 +31,17 @@ namespace Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("PostId")
                         .HasColumnType("int");
@@ -61,14 +61,14 @@ namespace Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("LogoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -91,25 +91,25 @@ namespace Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Extension")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("FolderId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Path")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Size")
-                        .HasColumnType("decimal(65,30)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -132,29 +132,29 @@ namespace Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
                     b.Property<byte[]>("Content")
                         .IsRequired()
-                        .HasColumnType("longblob");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -169,33 +169,38 @@ namespace Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AvatarImageId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(64)
-                        .HasColumnType("varchar(64)");
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(64)
-                        .HasColumnType("varchar(64)");
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("longblob");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<byte[]>("PasswordSalt")
                         .IsRequired()
-                        .HasColumnType("longblob");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AvatarImageId");
 
                     b.HasIndex("Email")
                         .IsUnique();
@@ -211,8 +216,8 @@ namespace Domain.Migrations
                             Id = 1,
                             Email = "user@example.com",
                             Name = "User",
-                            PasswordHash = new byte[] { 38, 52, 24, 109, 139, 221, 121, 123, 20, 43, 102, 125, 48, 66, 221, 48, 214, 95, 198, 99, 72, 137, 73, 69, 165, 194, 247, 237, 113, 239, 240, 188, 173, 193, 65, 48, 99, 199, 134, 228, 218, 32, 232, 175, 132, 51, 161, 169, 142, 3, 228, 254, 248, 121, 160, 24, 77, 176, 124, 198, 144, 36, 254, 50 },
-                            PasswordSalt = new byte[] { 165, 46, 136, 206, 38, 217, 97, 160, 46, 52, 244, 179, 85, 110, 168, 231, 78, 249, 31, 72, 155, 96, 209, 148, 60, 97, 160, 174, 121, 212, 227, 255, 14, 165, 143, 69, 13, 157, 26, 118, 52, 40, 115, 121, 174, 165, 95, 113, 15, 46, 165, 208, 63, 123, 118, 49, 87, 252, 250, 222, 80, 107, 221, 161, 34, 245, 171, 245, 72, 248, 175, 34, 190, 171, 206, 118, 95, 224, 202, 79, 204, 246, 163, 253, 50, 210, 23, 56, 56, 50, 158, 223, 60, 15, 45, 145, 104, 7, 26, 206, 22, 83, 77, 249, 95, 180, 32, 210, 236, 178, 102, 84, 103, 190, 200, 191, 112, 225, 168, 138, 15, 144, 247, 36, 139, 115, 203, 76 },
+                            PasswordHash = new byte[] { 48, 176, 20, 106, 39, 235, 47, 152, 176, 109, 30, 221, 166, 164, 120, 156, 81, 80, 226, 63, 121, 59, 165, 254, 245, 251, 226, 128, 102, 14, 68, 186, 82, 78, 46, 231, 146, 238, 172, 132, 59, 224, 26, 163, 142, 47, 31, 112, 150, 40, 46, 61, 2, 123, 154, 187, 59, 241, 237, 62, 67, 215, 33, 103 },
+                            PasswordSalt = new byte[] { 51, 12, 215, 28, 115, 205, 59, 234, 103, 164, 163, 117, 31, 39, 142, 209, 127, 225, 159, 3, 2, 27, 183, 44, 228, 35, 60, 221, 133, 223, 40, 152, 73, 230, 147, 132, 216, 175, 11, 168, 249, 196, 156, 122, 198, 14, 185, 150, 70, 108, 179, 188, 10, 83, 28, 156, 218, 80, 93, 68, 153, 232, 178, 61, 17, 255, 25, 118, 104, 101, 157, 210, 4, 87, 48, 162, 224, 74, 0, 115, 252, 77, 88, 108, 39, 129, 169, 117, 53, 82, 152, 107, 239, 204, 144, 161, 128, 138, 113, 29, 231, 135, 215, 7, 221, 101, 54, 222, 10, 107, 174, 134, 101, 86, 74, 0, 247, 103, 231, 9, 175, 17, 252, 184, 35, 119, 59, 199 },
                             Role = 1
                         });
                 });
@@ -228,7 +233,7 @@ namespace Domain.Migrations
                     b.HasOne("Domain.Posts.Entities.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Author");
@@ -280,6 +285,15 @@ namespace Domain.Migrations
                         .IsRequired();
 
                     b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("Domain.Users.Entities.User", b =>
+                {
+                    b.HasOne("Domain.Images.Entities.Image", "AvatarImage")
+                        .WithMany()
+                        .HasForeignKey("AvatarImageId");
+
+                    b.Navigation("AvatarImage");
                 });
 
             modelBuilder.Entity("Domain.Folders.Entities.Folder", b =>

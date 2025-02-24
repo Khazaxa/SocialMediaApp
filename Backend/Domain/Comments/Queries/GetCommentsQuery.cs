@@ -9,7 +9,7 @@ public record GetCommentsQuery : IQuery<IEnumerable<CommentDto>>;
 
 internal class GetCommentsQueryHandler(
     ICommentRepository commentRepository
-    ) : IQueryHandler<GetCommentsQuery, IEnumerable<CommentDto>>
+) : IQueryHandler<GetCommentsQuery, IEnumerable<CommentDto>>
 {
     public async Task<IEnumerable<CommentDto>> Handle(GetCommentsQuery query, CancellationToken cancellationToken)
     {

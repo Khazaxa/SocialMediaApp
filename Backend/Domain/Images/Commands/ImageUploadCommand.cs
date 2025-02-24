@@ -19,7 +19,8 @@ internal class ImageUploadCommandHandler(
     IImageRepository imageRepository,
     IUnitOfWork unitOfWork,
     IAzureConfig azureConfig,
-    IUserContextService userContext) : ICommandHandler<ImageUploadCommand, Unit>
+    IUserContextService userContext
+) : ICommandHandler<ImageUploadCommand, Unit>
 {
     public async Task<Unit> Handle(ImageUploadCommand input, CancellationToken cancellationToken)
     {

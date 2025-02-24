@@ -1,6 +1,5 @@
 using Core.Cqrs;
 using Core.Exceptions;
-using Domain.Images.Entities;
 using Domain.Images.Repositories;
 using Domain.Users.Dto;
 using Domain.Users.Enums;
@@ -22,7 +21,6 @@ internal class UserUpdateCommandHandler(
 {
     public async Task<Unit> Handle(UserUpdateCommand command, CancellationToken cancellationToken)
     {
-        Image? avatar = null;
         var loggedUserId = userContext.GetUserId();
 
         var user = await userRepository.FindAsync(loggedUserId!.Value, cancellationToken)
@@ -42,16 +40,14 @@ internal class UserUpdateCommandHandler(
         
         if (command.UserParams.AvatarId.HasValue)
         {
-            avatar = await imageRepository.FindAsync(command.UserParams.AvatarId.Value, cancellationToken)
+            var avatar = await imageRepository.FindAsync(command.UserParams.AvatarId.Value, cancellationToken)
                          ?? throw new DomainException("Avatar not found", (int)UserErrorCode.AvatarNotFound);
-            
+
             user.UpdateAvatar(
                 avatar
             );
         }
         
-        
-
         await dbContext.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;

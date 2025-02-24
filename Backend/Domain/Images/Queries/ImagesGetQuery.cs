@@ -5,9 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Images.Queries;
 
-public record ImagesGetQuery() : IQuery<List<ImageDto>>;
+public record ImagesGetQuery : IQuery<List<ImageDto>>;
 
-internal class ImagesGetQueryHandler(IImageRepository imgRepository) : IQueryHandler<ImagesGetQuery, List<ImageDto>>
+internal class ImagesGetQueryHandler(
+    IImageRepository imgRepository
+) : IQueryHandler<ImagesGetQuery, List<ImageDto>>
 {
 
     public async Task<List<ImageDto>> Handle(ImagesGetQuery request, CancellationToken cancellationToken)

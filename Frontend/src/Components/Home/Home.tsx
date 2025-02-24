@@ -1,4 +1,3 @@
-// Home.tsx
 import { useState } from "react";
 import styles from "./Home.module.scss";
 import NavBar from "./NavBar/NavBar";

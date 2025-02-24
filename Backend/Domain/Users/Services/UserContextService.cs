@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace Domain.Users.Services;
 
-public class UserContextService(IHttpContextAccessor accessor) : IUserContextService
+public class UserContextService(
+    IHttpContextAccessor accessor
+) : IUserContextService
 {
     public int? GetUserId()
     {

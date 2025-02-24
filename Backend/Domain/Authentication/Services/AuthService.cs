@@ -7,7 +7,6 @@ using Domain.Authentication.Enums;
 using Domain.Users.Enums;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace Domain.Authentication.Services;
 

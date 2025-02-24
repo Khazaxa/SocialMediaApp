@@ -14,7 +14,7 @@ internal class ImageDeleteCommandHandler(
     IImageRepository imgRepository,
     IUnitOfWork unitOfWork,
     IUserContextService userContext
-    ) : ICommandHandler<ImageDeleteCommand, Unit>
+) : ICommandHandler<ImageDeleteCommand, Unit>
 {
     public async Task<Unit> Handle(ImageDeleteCommand command, CancellationToken cancellationToken)
     {

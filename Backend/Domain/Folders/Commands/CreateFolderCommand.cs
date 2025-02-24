@@ -1,7 +1,7 @@
 using Core.Cqrs;
 using Core.Database;
 using Core.Exceptions;
-using Domain.Folders.Dtos;
+using Domain.Folders.Dto;
 using Domain.Folders.Entities;
 using Domain.Folders.Enums;
 using Domain.Folders.Repositories;

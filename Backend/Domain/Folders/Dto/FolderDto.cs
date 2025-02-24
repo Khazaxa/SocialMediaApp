@@ -1,6 +1,6 @@
 using Domain.Images.Entities;
 
-namespace Domain.Folders.Dtos;
+namespace Domain.Folders.Dto;
 
 public record FolderDto(
     int id,
@@ -9,4 +9,4 @@ public record FolderDto(
     string UserName,
     Image Logo,
     List<Image> Images
-    );
+);

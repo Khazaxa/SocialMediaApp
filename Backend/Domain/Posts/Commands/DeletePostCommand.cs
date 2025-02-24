@@ -9,7 +9,8 @@ public record DeletePostCommand(int Id) : ICommand<Unit>;
 
 internal class DeletePostCommandHandler(
     IPostRepository postRepository,
-    IUnitOfWork unitOfWork) : ICommandHandler<DeletePostCommand, Unit>
+    IUnitOfWork unitOfWork
+) : ICommandHandler<DeletePostCommand, Unit>
 {
     public async Task<Unit> Handle(DeletePostCommand request, CancellationToken cancellationToken)
     {

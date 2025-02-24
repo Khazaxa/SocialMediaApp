@@ -7,7 +7,8 @@ namespace Domain.Images.Queries;
 public record ImagesGetByFolderQuery(int FolderId) : IQuery<IEnumerable<ImageDto>>;
 
 internal class ImagesGetByFolderQueryHandler(
-    IImageRepository imageRepository) : IQueryHandler<ImagesGetByFolderQuery, IEnumerable<ImageDto>>
+    IImageRepository imageRepository
+) : IQueryHandler<ImagesGetByFolderQuery, IEnumerable<ImageDto>>
 {
     public async Task<IEnumerable<ImageDto>> Handle(ImagesGetByFolderQuery request, CancellationToken cancellationToken)
     {

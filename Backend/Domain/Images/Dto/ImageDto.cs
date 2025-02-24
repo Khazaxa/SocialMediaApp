@@ -7,4 +7,5 @@ public record ImageDto(
     decimal Size,
     string Path,
     int UserId,
-    int? FolderId);
+    int? FolderId
+);

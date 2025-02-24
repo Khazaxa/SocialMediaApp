@@ -9,7 +9,6 @@ public class UsersModule : Module
         base.Load(builder);
     
         builder.RegisterType<Repositories.UserRepository>().AsImplementedInterfaces();
-        builder.RegisterType<Services.UserService>().AsImplementedInterfaces();
         builder.RegisterType<Services.UserContextService>().AsImplementedInterfaces();
     }
 }

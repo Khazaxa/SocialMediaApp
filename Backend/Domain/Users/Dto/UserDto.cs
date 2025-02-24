@@ -1,6 +1,6 @@
 using Domain.Users.Enums;
 
-namespace Domain.Users.Dtos;
+namespace Domain.Users.Dto;
 
 public record UserDto(
     int Id,
@@ -8,4 +8,5 @@ public record UserDto(
     string Email,
     int? Age,
     UserRole Role,
-    int? AvatarId);
+    int? AvatarId
+);

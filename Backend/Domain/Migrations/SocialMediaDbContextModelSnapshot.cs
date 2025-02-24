@@ -18,9 +18,9 @@ namespace Domain.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.11")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Domain.Comments.Entities.Comment", b =>
                 {
@@ -28,17 +28,17 @@ namespace Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("PostId")
                         .HasColumnType("int");
@@ -58,14 +58,14 @@ namespace Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("LogoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -88,25 +88,25 @@ namespace Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Extension")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("FolderId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Path")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Size")
-                        .HasColumnType("decimal(65,30)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -129,29 +129,29 @@ namespace Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
                     b.Property<byte[]>("Content")
                         .IsRequired()
-                        .HasColumnType("longblob");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint(1)")
+                        .HasColumnType("bit")
                         .HasDefaultValue(false);
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -166,7 +166,7 @@ namespace Domain.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("Age")
                         .HasColumnType("int");
@@ -177,19 +177,20 @@ namespace Domain.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(64)
-                        .HasColumnType("varchar(64)");
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(64)
-                        .HasColumnType("varchar(64)");
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("longblob");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<byte[]>("PasswordSalt")
                         .IsRequired()
-                        .HasColumnType("longblob");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
@@ -212,8 +213,8 @@ namespace Domain.Migrations
                             Id = 1,
                             Email = "user@example.com",
                             Name = "User",
-                            PasswordHash = new byte[] { 4, 253, 138, 76, 225, 167, 161, 133, 39, 219, 101, 6, 185, 211, 243, 40, 103, 232, 207, 138, 75, 49, 213, 132, 24, 52, 17, 66, 148, 44, 124, 118, 117, 0, 249, 176, 41, 90, 162, 90, 248, 16, 126, 39, 106, 58, 183, 72, 44, 50, 137, 243, 68, 73, 179, 158, 138, 158, 254, 252, 96, 152, 138, 237 },
-                            PasswordSalt = new byte[] { 154, 71, 162, 72, 94, 9, 102, 111, 159, 7, 51, 224, 80, 120, 51, 65, 201, 114, 219, 15, 178, 234, 249, 251, 45, 109, 18, 231, 207, 144, 87, 186, 166, 153, 131, 27, 230, 104, 152, 208, 251, 160, 250, 196, 159, 99, 56, 83, 76, 86, 144, 132, 134, 119, 85, 211, 196, 207, 54, 117, 195, 84, 114, 128, 116, 189, 165, 14, 73, 247, 177, 125, 195, 120, 166, 57, 60, 64, 154, 197, 144, 227, 1, 179, 145, 92, 165, 105, 48, 17, 156, 107, 200, 149, 217, 239, 18, 108, 42, 59, 32, 38, 35, 220, 219, 202, 100, 74, 31, 146, 136, 32, 54, 251, 82, 160, 69, 152, 236, 155, 26, 143, 95, 226, 140, 5, 207, 251 },
+                            PasswordHash = new byte[] { 48, 176, 20, 106, 39, 235, 47, 152, 176, 109, 30, 221, 166, 164, 120, 156, 81, 80, 226, 63, 121, 59, 165, 254, 245, 251, 226, 128, 102, 14, 68, 186, 82, 78, 46, 231, 146, 238, 172, 132, 59, 224, 26, 163, 142, 47, 31, 112, 150, 40, 46, 61, 2, 123, 154, 187, 59, 241, 237, 62, 67, 215, 33, 103 },
+                            PasswordSalt = new byte[] { 51, 12, 215, 28, 115, 205, 59, 234, 103, 164, 163, 117, 31, 39, 142, 209, 127, 225, 159, 3, 2, 27, 183, 44, 228, 35, 60, 221, 133, 223, 40, 152, 73, 230, 147, 132, 216, 175, 11, 168, 249, 196, 156, 122, 198, 14, 185, 150, 70, 108, 179, 188, 10, 83, 28, 156, 218, 80, 93, 68, 153, 232, 178, 61, 17, 255, 25, 118, 104, 101, 157, 210, 4, 87, 48, 162, 224, 74, 0, 115, 252, 77, 88, 108, 39, 129, 169, 117, 53, 82, 152, 107, 239, 204, 144, 161, 128, 138, 113, 29, 231, 135, 215, 7, 221, 101, 54, 222, 10, 107, 174, 134, 101, 86, 74, 0, 247, 103, 231, 9, 175, 17, 252, 184, 35, 119, 59, 199 },
                             Role = 1
                         });
                 });

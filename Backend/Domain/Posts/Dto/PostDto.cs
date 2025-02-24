@@ -5,4 +5,5 @@ public record PostDto(
     string Title,
     string Content,
     int AuthorId,
-    string Author);
+    string Author
+);

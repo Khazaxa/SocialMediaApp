@@ -1,5 +1,5 @@
 using Core.Cqrs;
-using Domain.Folders.Dtos;
+using Domain.Folders.Dto;
 using Domain.Folders.Repositories;
 using Microsoft.EntityFrameworkCore;
 

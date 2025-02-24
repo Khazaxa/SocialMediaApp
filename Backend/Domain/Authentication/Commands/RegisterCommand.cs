@@ -16,7 +16,8 @@ public record RegisterCommand(RegisterParams Input) : ICommand<int>;
 
 internal class RegisterCommandHandler(
     IUserRepository userRepository,
-    IUnitOfWork unitOfWork) : IRequestHandler<RegisterCommand, int>
+    IUnitOfWork unitOfWork
+    ) : IRequestHandler<RegisterCommand, int>
 {
     public async Task<int> Handle(RegisterCommand command, CancellationToken cancellationToken)
     {

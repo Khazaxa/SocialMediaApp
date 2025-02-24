@@ -1,13 +1,15 @@
 using Domain.Folders.Commands;
-using Domain.Folders.Dtos;
+using Domain.Folders.Dto;
 using Domain.Folders.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 [ApiController]
 [Route("")]
+[Authorize(Roles = "Admin,User,Employee")]
 public class FoldersController(IMediator mediator) : ControllerBase
 {
     [HttpPost]
