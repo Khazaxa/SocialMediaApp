@@ -36,13 +36,22 @@ public class Post : EntityBase
                 .WithMany(u => u.Posts)
                 .HasForeignKey(p => p.AuthorId)
                 .OnDelete(DeleteBehavior.Restrict);
-
+            
             entity.Property(p => p.IsDeleted)
                 .IsRequired()
                 .HasDefaultValue(false);
             
             entity.Property(p => p.Content)
-                .HasColumnType("varbinary(max)");
+                .HasColumnType("LONGBLOB");
+            
+            entity.Property(p => p.CreatedAt)
+                .HasColumnType("datetime(6)") 
+                .HasDefaultValueSql("CURRENT_TIMESTAMP(6)"); 
+            
+            entity.Property(p => p.UpdatedAt)
+                .HasColumnType("datetime(6)")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP(6)");
         });
     }
+
 }
