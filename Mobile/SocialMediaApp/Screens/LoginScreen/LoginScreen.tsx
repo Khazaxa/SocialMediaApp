@@ -24,23 +24,37 @@ export type Props = {
   navigation: LoginScreenNavigationProp;
 };
 
-const correctLogin = "admin";
-const correctPassword = "admin";
-
 const LoginScreen: React.FC<Props> = ({ navigation }) => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    if (username === correctLogin && password === correctPassword) {
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{ name: "Home" }],
-        })
-      );
-    } else {
-      Alert.alert("Invalid credentials", "Please try again.");
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("http://localhost:5057/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [{ name: "Home" }],
+          })
+        );
+      } else {
+        Alert.alert("Login failed", data.message || "Please try again.");
+      }
+    } catch (error) {
+      Alert.alert("Error", "Something went wrong. Please try again.");
     }
   };
 
@@ -49,9 +63,9 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
       <Image style={styles.image} source={require("../../assets/logo.png")} />
       <TextInput
         style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
       />
       <TextInput
         style={styles.input}
