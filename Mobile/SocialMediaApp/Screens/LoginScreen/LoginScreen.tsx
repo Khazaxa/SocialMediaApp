@@ -8,14 +8,16 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { CommonActions } from "@react-navigation/native";
 import styles from "./LoginScreenStyles";
+
+const VALID_EMAIL = "user";
+const VALID_PASSWORD = "123";
 
 type LoginScreenNavigationProp = StackNavigationProp<
   {
     Login: undefined;
-    Home: undefined;
     Register: undefined;
+    Home: undefined;
   },
   "Login"
 >;
@@ -29,32 +31,10 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    try {
-      const response = await fetch("http://localhost:5057/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 0,
-            routes: [{ name: "Home" }],
-          })
-        );
-      } else {
-        Alert.alert("Login failed", data.message || "Please try again.");
-      }
-    } catch (error) {
-      Alert.alert("Error", "Something went wrong. Please try again.");
+    if (email === VALID_EMAIL && password === VALID_PASSWORD) {
+      navigation.navigate("Home");
+    } else {
+      Alert.alert("Login failed");
     }
   };
 
