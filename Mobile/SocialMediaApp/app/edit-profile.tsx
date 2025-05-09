@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
-import { Camera } from 'lucide-react-native';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import * as ImagePicker from 'expo-image-picker';
 import { StatusBar } from 'expo-status-bar';
 import { Input } from '@/components/Input';
@@ -65,7 +65,7 @@ export default function EditProfileScreen() {
             contentFit="cover"
           />
           <TouchableOpacity style={styles.changePhotoButton} onPress={pickImage}>
-            <Camera size={20} color={colors.primary} />
+            <AntDesign name="camera" size={20} color={colors.primary} />
             <Text style={styles.changePhotoText}>Change Photo</Text>
           </TouchableOpacity>
         </View>

@@ -5,7 +5,7 @@ import { findUserById } from "@/mocks/users";
 import { useAuthStore } from "@/store/authStore";
 import { Image } from "expo-image";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { Grid } from "lucide-react-native";
+import Feather from '@expo/vector-icons/Feather';
 import React from "react";
 import {
   FlatList,
@@ -121,7 +121,7 @@ export default function UserProfileScreen() {
       <View style={styles.postsSection}>
         <View style={styles.postsHeader}>
           <Text style={styles.postsTitle}>Posts</Text>
-          <Grid size={20} color={colors.text} />
+          <Feather name="grid" size={20} color={colors.text} />
         </View>
 
         {Platform.OS === "web" ? (

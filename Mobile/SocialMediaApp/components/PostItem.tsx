@@ -1,12 +1,19 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Pressable } from 'react-native';
-import { Image } from 'expo-image';
-import { Heart, MessageCircle, MoreHorizontal } from 'lucide-react-native';
-import { Link } from 'expo-router';
-import { Post } from '@/types';
-import { findUserById } from '@/mocks/users';
-import { colors } from '@/constants/colors';
-import { formatTimeAgo } from '@/utils/dateUtils';
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
+import { Image } from "expo-image";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import Feather from "@expo/vector-icons/Feather";
+import { Link } from "expo-router";
+import { Post } from "@/types";
+import { findUserById } from "@/mocks/users";
+import { colors } from "@/constants/colors";
+import { formatTimeAgo } from "@/utils/dateUtils";
 
 interface PostItemProps {
   post: Post;
@@ -17,7 +24,7 @@ interface PostItemProps {
 export const PostItem = ({ post, onLike, currentUserId }: PostItemProps) => {
   const user = findUserById(post.userId);
   const isLiked = post.likes.includes(currentUserId);
-  
+
   if (!user) return null;
 
   return (
@@ -31,20 +38,24 @@ export const PostItem = ({ post, onLike, currentUserId }: PostItemProps) => {
               contentFit="cover"
             />
             <View>
-              <Text style={styles.userName}>{user.name} {user.surname}</Text>
-              <Text style={styles.timeAgo}>{formatTimeAgo(post.createdAt)}</Text>
+              <Text style={styles.userName}>
+                {user.name} {user.surname}
+              </Text>
+              <Text style={styles.timeAgo}>
+                {formatTimeAgo(post.createdAt)}
+              </Text>
             </View>
           </Pressable>
         </Link>
         <TouchableOpacity>
-          <MoreHorizontal size={20} color={colors.textLight} />
+          <Feather name="more-horizontal" size={20} color={colors.textLight} />
         </TouchableOpacity>
       </View>
-      
+
       <Link href={`/post/${post.id}`} asChild>
         <Pressable>
           <Text style={styles.postText}>{post.text}</Text>
-          
+
           {post.images.length > 0 && (
             <View style={styles.imageContainer}>
               {post.images.length === 1 ? (
@@ -61,8 +72,16 @@ export const PostItem = ({ post, onLike, currentUserId }: PostItemProps) => {
                       source={{ uri: image }}
                       style={[
                         styles.multipleImage,
-                        index === 0 && post.images.length === 2 && { width: '49%', height: 300 },
-                        index === 1 && post.images.length === 2 && { width: '49%', height: 300 }
+                        index === 0 &&
+                          post.images.length === 2 && {
+                            width: "49%",
+                            height: 300,
+                          },
+                        index === 1 &&
+                          post.images.length === 2 && {
+                            width: "49%",
+                            height: 300,
+                          },
                       ]}
                       contentFit="cover"
                     />
@@ -73,23 +92,23 @@ export const PostItem = ({ post, onLike, currentUserId }: PostItemProps) => {
           )}
         </Pressable>
       </Link>
-      
+
       <View style={styles.actions}>
-        <TouchableOpacity 
-          style={styles.actionButton} 
+        <TouchableOpacity
+          style={styles.actionButton}
           onPress={() => onLike(post.id)}
         >
-          <Heart 
-            size={20} 
-            color={isLiked ? colors.notification : colors.textLight} 
-            fill={isLiked ? colors.notification : 'none'} 
+          <AntDesign
+            name="heart"
+            size={20}
+            color={isLiked ? colors.notification : colors.textLight}
           />
           <Text style={styles.actionText}>{post.likes.length}</Text>
         </TouchableOpacity>
-        
+
         <Link href={`/post/${post.id}`} asChild>
           <TouchableOpacity style={styles.actionButton}>
-            <MessageCircle size={20} color={colors.textLight} />
+            <AntDesign name="message1" size={20} color={colors.textLight} />
             <Text style={styles.actionText}>{post.comments.length}</Text>
           </TouchableOpacity>
         </Link>
@@ -106,14 +125,14 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 12,
   },
   userInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   avatar: {
     width: 40,
@@ -122,7 +141,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   userName: {
-    fontWeight: '600',
+    fontWeight: "600",
     fontSize: 15,
     color: colors.text,
   },
@@ -140,30 +159,30 @@ const styles = StyleSheet.create({
   imageContainer: {
     marginBottom: 12,
     borderRadius: 12,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   singleImage: {
-    width: '100%',
+    width: "100%",
     height: 300,
     borderRadius: 12,
   },
   multipleImagesContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 4,
   },
   multipleImage: {
-    width: '49%',
+    width: "49%",
     height: 150,
     borderRadius: 12,
   },
   actions: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 8,
   },
   actionButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginRight: 24,
   },
   actionText: {

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 import { StatusBar } from 'expo-status-bar';
-import { Heart, MessageCircle, UserPlus } from 'lucide-react-native';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { Link } from 'expo-router';
 import { colors } from '@/constants/colors';
 
@@ -65,11 +65,11 @@ export default function ActivityScreen() {
     const getActivityIcon = () => {
       switch (item.type) {
         case 'like':
-          return <Heart size={16} color={colors.notification} fill={colors.notification} />;
+          return <AntDesign name="heart" size={16} color={colors.notification} />;
         case 'comment':
-          return <MessageCircle size={16} color={colors.primary} />;
+          return <AntDesign name="message1" size={16} color={colors.primary} />;
         case 'follow':
-          return <UserPlus size={16} color={colors.secondary} />;
+          return <AntDesign name="adduser" size={16} color={colors.secondary} />;
         default:
           return null;
       }

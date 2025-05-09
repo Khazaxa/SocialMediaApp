@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform, TextInput } from 'react-native';
 import { Image } from 'expo-image';
 import { useLocalSearchParams } from 'expo-router';
-import { Heart, MessageCircle, Send } from 'lucide-react-native';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import Feather from '@expo/vector-icons/Feather';
 import { colors } from '@/constants/colors';
 import { CommentItem } from '@/components/CommentItem';
 import { findPostById } from '@/mocks/posts';
@@ -80,16 +81,15 @@ export default function PostDetailScreen() {
         
         <View style={styles.actions}>
           <TouchableOpacity style={styles.actionButton} onPress={handleLike}>
-            <Heart 
+            <AntDesign name="heart"
               size={24} 
               color={isLiked ? colors.notification : colors.textLight} 
-              fill={isLiked ? colors.notification : 'none'} 
             />
             <Text style={styles.actionText}>{post.likes.length} likes</Text>
           </TouchableOpacity>
           
           <View style={styles.actionButton}>
-            <MessageCircle size={24} color={colors.textLight} />
+            <AntDesign name="message1" size={24} color={colors.textLight} />
             <Text style={styles.actionText}>{post.comments.length} comments</Text>
           </View>
         </View>
@@ -128,7 +128,7 @@ export default function PostDetailScreen() {
           onPress={handleAddComment}
           disabled={!commentText.trim()}
         >
-          <Send size={20} color={commentText.trim() ? colors.primary : colors.textLight} />
+          <Feather name="send" size={20} color={commentText.trim() ? colors.primary : colors.textLight} />
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>

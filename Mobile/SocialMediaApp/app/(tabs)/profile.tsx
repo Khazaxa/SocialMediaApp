@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity, FlatList, useWindowDimensions
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 import { StatusBar } from 'expo-status-bar';
-import { Grid, LogOut, Settings } from 'lucide-react-native';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import Feather from '@expo/vector-icons/Feather';
 import { useRouter } from 'expo-router';
 import { colors } from '@/constants/colors';
 import { Button } from '@/components/Button';
@@ -61,10 +62,10 @@ export default function ProfileScreen() {
             style={styles.headerButton}
             onPress={() => router.push('/settings')}
           >
-            <Settings size={24} color={colors.text} />
+            <AntDesign name="setting" size={24} color={colors.text} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.headerButton} onPress={handleLogout}>
-            <LogOut size={24} color={colors.text} />
+            <AntDesign name="logout" size={24} color={colors.text} />
           </TouchableOpacity>
         </View>
       </View>
@@ -116,7 +117,7 @@ export default function ProfileScreen() {
       <View style={styles.postsSection}>
         <View style={styles.postsHeader}>
           <Text style={styles.postsTitle}>Posts</Text>
-          <Grid size={20} color={colors.text} />
+          <Feather name="grid" size={20} color={colors.text} />
         </View>
         
         {Platform.OS === 'web' ? (

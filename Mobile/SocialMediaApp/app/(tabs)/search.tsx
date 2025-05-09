@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'r
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 import { StatusBar } from 'expo-status-bar';
-import { Search as SearchIcon, X } from 'lucide-react-native';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { Link } from 'expo-router';
 import { colors } from '@/constants/colors';
 import { users } from '@/mocks/users';
@@ -39,7 +39,7 @@ export default function SearchScreen() {
       <StatusBar style="dark" />
       <View style={styles.searchContainer}>
         <View style={styles.searchInputContainer}>
-          <SearchIcon size={20} color={colors.textLight} style={styles.searchIcon} />
+          <AntDesign name="search1" size={20} color={colors.textLight} style={styles.searchIcon} />
           <TextInput
             style={styles.searchInput}
             placeholder="Search users..."
@@ -49,7 +49,7 @@ export default function SearchScreen() {
           />
           {searchQuery.length > 0 && (
             <TouchableOpacity onPress={clearSearch}>
-              <X size={20} color={colors.textLight} />
+              <AntDesign name="close" size={20} color={colors.textLight} />
             </TouchableOpacity>
           )}
         </View>

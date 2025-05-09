@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, StyleSheet, TouchableOpacity, ViewStyle, TextStyle } from 'react-native';
-import { Eye, EyeOff } from 'lucide-react-native';
+import Feather from '@expo/vector-icons/Feather';
 import { colors } from '@/constants/colors';
 
 interface InputProps {
@@ -60,9 +60,9 @@ export const Input = ({
         {secureTextEntry && (
           <TouchableOpacity onPress={togglePasswordVisibility} style={styles.eyeIcon}>
             {showPassword ? (
-              <EyeOff size={20} color={colors.textLight} />
+              <Feather name="eye-off" size={20} color={colors.textLight} />
             ) : (
-              <Eye size={20} color={colors.textLight} />
+              <Feather name="eye" size={20} color={colors.textLight} />
             )}
           </TouchableOpacity>
         )}
